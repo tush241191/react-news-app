@@ -1,0 +1,77 @@
+{
+  "overrides": [],
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "array-bracket-spacing": ["error", "never"],
+    "arrow-parens": ["error", "as-needed"],
+    "brace-style": "error",
+    "comma-dangle": ["error", "never"],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "curly": ["error", "multi-line"],
+    "eol-last": ["error", "always"],
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "key-spacing": ["error", {"beforeColon": false, "afterColon": true}],
+    "no-empty-function": 0,
+    "no-extra-parens": ["error", "all", {"nestedBinaryExpressions": false }],
+    "no-multiple-empty-lines": ["error", {"max": 1, "maxEOF": 0, "maxBOF": 0}],
+    "no-multi-spaces": ["error", {"ignoreEOLComments": true}],
+    "no-trailing-spaces": ["error"],
+    "no-unused-vars": "off",
+    "object-curly-spacing": ["error", "never"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "never"],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "@typescript-eslint/indent": [2, 2, { "SwitchCase": 1 }],
+    "@typescript-eslint/member-delimiter-style": ["error", {
+      "multiline": {"delimiter": "semi", "requireLast": true},
+      "singleline": {"delimiter": "semi", "requireLast": true}
+    }],
+    "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/no-unused-vars": ["error", {"argsIgnorePattern": "^_" }],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": 0,
+    "react/no-unescaped-entities": 0,
+    "react/display-name": "off",
+    "react/jsx-tag-spacing": ["error", { "beforeSelfClosing": "always" }],
+    "react-hooks/rules-of-hooks": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "jsx-quotes": ["error", "prefer-double"]
+  },
+  "extends": [
+    "react-app"
+  ],
+  "plugins": [
+    "react",
+    "simple-import-sort"
+  ]
+}
