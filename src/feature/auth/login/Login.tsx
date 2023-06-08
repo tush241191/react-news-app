@@ -1,6 +1,7 @@
 import React, {SyntheticEvent, useEffect, useState} from 'react'
 import CheckIcon from 'src/components/icons/CheckIcon'
 import Modal from 'src/components/modal/Modal'
+import {useAuth} from 'src/hooks/useAuth'
 
 import {LoginForm} from '../types'
 
@@ -10,6 +11,7 @@ const defaultLoginFormValue: LoginForm = {
 }
 
 const Login = () => {
+  const {login} = useAuth()
   const [loginForm, setLoginForm] = useState<LoginForm>(defaultLoginFormValue)
   const [hasError, setHasError] = useState<boolean>(true)
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -30,7 +32,7 @@ const Login = () => {
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault()
     if (!hasError) {
-      console.log(loginForm)
+      login(loginForm)
     }
   }
 
