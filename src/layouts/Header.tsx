@@ -1,12 +1,23 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import Search from 'src/components/search/Search'
+import {User} from 'src/feature/auth/types'
 import {useAuth} from 'src/hooks/useAuth'
 import {APP_ROUTES} from 'src/router/router'
+import {getAuthData} from 'src/utils/auth'
 import {APP_ASSETS} from 'src/utils/constants'
 
 const Header = () => {
   const {logout} = useAuth()
+  const [user, setUser] = useState<User>()
+
+  useEffect(() => {
+    const data = getAuthData()
+    if(data) {
+      const userData = JSON.parse(data)
+      setUser(userData)
+    }
+  }, [])
 
   const handleOnclickLogout = () => {
     logout()
@@ -27,10 +38,12 @@ const Header = () => {
             <Search />
           </div>
           <div className="flex items-center justify-end xl:col-span-4">
-            <div className="mt-4 text-left sm:mt-0 sm:pt-1 sm:text-left">
-              <p className="text-base font-medium text-gray-900">Welcome,</p>
-              <p className="text-sm font-medium text-gray-600 truncate">tushar@example.com</p>
-            </div>
+            {user &&
+              <div className="mt-4 text-left sm:mt-0 sm:pt-1 sm:text-left">
+                <p className="text-base font-medium text-gray-900">Welcome,</p>
+                <p className="text-sm font-medium text-gray-600 truncate">{user.email}</p>
+              </div>
+            }
             <button
               onClick={handleOnclickLogout}
               className="inline-flex items-center px-3 py-2 ml-6 text-sm font-semibold text-blue-500 bg-transparent border border-blue-500 rounded-md shadow-sm hover:text-white hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
