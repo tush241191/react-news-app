@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom'
 import {LoginForm} from 'src/feature/auth/types'
 import {APP_ROUTES} from 'src/router/router'
-import {removeAuthData, setAuthData} from 'src/utils/auth'
+import {getAuthData, removeAuthData, setAuthData} from 'src/utils/auth'
 import {getErrorMessage} from 'src/utils/utils'
 
 export const useAuth = () => {
@@ -21,10 +21,19 @@ export const useAuth = () => {
     }
   }
 
-  const logout = () => {
+  const logout = (): void => {
     removeAuthData()
     navigate(APP_ROUTES.ROOT)
   }
 
-  return {login, logout}
+  const isAuthenticated = (): boolean => {
+    const authData = getAuthData()
+    if(authData){
+      const data: LoginForm = JSON.parse(authData)
+      return data.apiKey !== ''
+    }
+    return false
+  }
+
+  return {login, logout, isAuthenticated}
 }
