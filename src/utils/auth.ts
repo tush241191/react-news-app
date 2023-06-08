@@ -1,13 +1,17 @@
 import {APP_VARIABLES} from './constants'
+import {decryptData, encryptData} from './utils'
 
 const KEY_TOKEN = APP_VARIABLES.LOCAL_STORAGE_KEY
 
 export const getAuthData = (): string => {
-  return localStorage.getItem(KEY_TOKEN) || ''
+  const data = localStorage.getItem(KEY_TOKEN)
+  if(data) return decryptData(data)
+  return ''
 }
 
 export const setAuthData = (auth: string): void => {
-  localStorage.setItem(KEY_TOKEN, auth)
+  const data = encryptData(auth)
+  localStorage.setItem(KEY_TOKEN, data)
 }
 
 export const removeAuthData = (): void => {
