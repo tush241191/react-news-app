@@ -2,6 +2,7 @@ import React, {SyntheticEvent, useEffect, useState} from 'react'
 import CheckIcon from 'src/components/icons/CheckIcon'
 import Modal from 'src/components/modal/Modal'
 import {useAuth} from 'src/hooks/useAuth'
+import {APP_ASSETS} from 'src/utils/constants'
 
 import {LoginForm} from '../types'
 
@@ -39,9 +40,7 @@ const Login = () => {
   return (
     <div className="flex flex-col justify-center min-h-screen px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h3 className="text-xl font-bold text-center text-blue-600 underline">
-          LOGO
-        </h3>
+        <img className="w-auto h-10 mx-auto" src={APP_ASSETS.LOGO} alt="News App" />
         <h2 className="mt-5 text-2xl font-bold leading-9 tracking-tight text-center text-gray-900">
           Sign in to your account
         </h2>
