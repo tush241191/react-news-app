@@ -13,3 +13,9 @@ export interface NewsResponse {
   url: string;
   urlToImage: string;
 }
+
+export interface NewsApiResponse {
+  status: string;
+  totalResults: number;
+  articles: any;
+}

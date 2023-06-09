@@ -12,6 +12,11 @@ export const APP_ASSETS = {
   MAGNIFIER: Magnifier
 }
 
+export const API_ROUTES = {
+  TOP_HEADLINES: '/top-headlines',
+  EVERYTHING: '/everything'
+}
+
 export const STATIC_NEWS_SOURCES: Source[] = [
   {
     id: 'bbc-news',

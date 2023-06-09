@@ -1,6 +1,5 @@
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
-import Search from 'src/components/search/Search'
 import {useAuth} from 'src/hooks/useAuth'
 import {APP_ROUTES} from 'src/router/router'
 import {RootState} from 'src/store/store'
@@ -17,16 +16,13 @@ const Header = () => {
   return (
     <header className="py-2 bg-white shadow-sm lg:static lg:overflow-y-visible">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex justify-between lg:gap-8 xl:grid xl:grid-cols-12">
+        <div className="flex justify-between">
           <div className="flex lg:static xl:col-span-2">
             <div className="flex items-center flex-shrink-0">
               <Link to={APP_ROUTES.ROOT}>
                 <img className="block w-auto h-10" src={APP_ASSETS.LOGO} alt="News App" />
               </Link>
             </div>
-          </div>
-          <div className="hidden min-w-0 lg:block lg:flex-1 md:px-8 lg:px-0 xl:col-span-6">
-            <Search />
           </div>
           <div className="flex items-center justify-end xl:col-span-4">
             {user &&
@@ -42,9 +38,6 @@ const Header = () => {
             </button>
           </div>
         </div>
-      </div>
-      <div className="lg:hidden">
-        <Search />
       </div>
     </header>
   )
