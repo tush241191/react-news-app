@@ -1,19 +1,20 @@
+import {useSelector} from 'react-redux'
 import {Navigate, Outlet} from 'react-router-dom'
-import {useAuth} from 'src/hooks/useAuth'
+import {RootState} from 'src/store/store'
 
 import {APP_ROUTES} from './router'
 
 const PublicRoute = () => {
-  const {isAuthenticated} = useAuth()
+  const auth = useSelector((state: RootState) => state.auth)
 
-  if (isAuthenticated()) return <Navigate to={APP_ROUTES.NEWS} replace />
+  if (auth.isAuthenticated) return <Navigate to={APP_ROUTES.NEWS} replace />
   return <Outlet />
 }
 
 const PrivateRoute = () => {
-  const {isAuthenticated} = useAuth()
+  const auth = useSelector((state: RootState) => state.auth)
 
-  if (!isAuthenticated()) return <Navigate to={APP_ROUTES.ROOT} replace />
+  if (!auth.isAuthenticated) return <Navigate to={APP_ROUTES.ROOT} replace />
   return <Outlet />
 }
 
