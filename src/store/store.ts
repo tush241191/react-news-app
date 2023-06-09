@@ -1,4 +1,4 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit'
+import {combineReducers, configureStore, createSerializableStateInvariantMiddleware} from '@reduxjs/toolkit'
 import {createTransform, persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import {decryptData, encryptData} from 'src/utils/utils'
@@ -30,6 +30,13 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
+const middleware = [
+  createSerializableStateInvariantMiddleware({
+    ignoredActions: ['persist/PERSIST']
+  })
+]
+
 export const store = configureStore({
-  reducer: persistedReducer
+  reducer: persistedReducer,
+  middleware
 })
