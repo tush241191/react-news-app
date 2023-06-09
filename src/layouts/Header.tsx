@@ -1,23 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Search from 'src/components/search/Search'
-import {User} from 'src/feature/auth/types'
 import {useAuth} from 'src/hooks/useAuth'
 import {APP_ROUTES} from 'src/router/router'
-import {getAuthData} from 'src/utils/auth'
+import {RootState} from 'src/store/store'
 import {APP_ASSETS} from 'src/utils/constants'
 
 const Header = () => {
   const {logout} = useAuth()
-  const [user, setUser] = useState<User>()
-
-  useEffect(() => {
-    const data = getAuthData()
-    if(data) {
-      const userData = JSON.parse(data)
-      setUser(userData)
-    }
-  }, [])
+  const user = useSelector((state: RootState) => state.auth.user)
 
   const handleOnclickLogout = () => {
     logout()

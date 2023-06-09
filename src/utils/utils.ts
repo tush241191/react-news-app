@@ -1,4 +1,4 @@
-import {AES, enc} from 'crypto-js'
+import CryptoJS from 'crypto-js'
 
 const secretKey = process.env.REACT_APP_SECRET_KEY || 'YourSecretKey'
 
@@ -10,9 +10,9 @@ export function getErrorMessage(error: unknown) {
 }
 
 export function encryptData(data: string) {
-  return AES.encrypt(data, secretKey).toString()
+  return CryptoJS.AES.encrypt(data, secretKey).toString()
 }
 
-export function decryptData(encryptedData: string | CryptoJS.lib.CipherParams) {
-  return AES.decrypt(encryptedData, secretKey).toString(enc.Utf8)
+export function decryptData(encryptedData: string) {
+  return CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
 }

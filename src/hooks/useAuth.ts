@@ -1,15 +1,17 @@
+import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {LoginForm} from 'src/feature/auth/types'
 import {APP_ROUTES} from 'src/router/router'
-import {getAuthData, removeAuthData, setAuthData} from 'src/utils/auth'
+import {loginFailure, loginSuccess, logoutRequest} from 'src/store/authSlice'
 import {getErrorMessage} from 'src/utils/utils'
 
 export const useAuth = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const login = async(data: LoginForm) => {
     try {
-      setAuthData(JSON.stringify(data))
+      dispatch(loginSuccess(data))
       navigate(APP_ROUTES.NEWS)
     } catch (error) {
       let message = 'Something went wrong'
@@ -17,23 +19,14 @@ export const useAuth = () => {
       if (err) {
         message = err
       }
-      throw new Error(message)
+      dispatch(loginFailure(message))
     }
   }
 
   const logout = (): void => {
-    removeAuthData()
+    dispatch(logoutRequest())
     navigate(APP_ROUTES.ROOT)
   }
 
-  const isAuthenticated = (): boolean => {
-    const authData = getAuthData()
-    if(authData){
-      const data: LoginForm = JSON.parse(authData)
-      return data.apiKey !== ''
-    }
-    return false
-  }
-
-  return {login, logout, isAuthenticated}
+  return {login, logout}
 }
