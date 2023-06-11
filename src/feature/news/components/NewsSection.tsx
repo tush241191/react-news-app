@@ -40,15 +40,27 @@ const NewsSection = ({source}: NewsSectionProps) => {
         <h2 className="font-bold">Headlines</h2>
         <ul className="grid grid-cols-2 mt-4 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
           {headlines.current.map(news =>
-            <a href={news.url} target="_blank" key={news.title} className="relative" rel="noreferrer">
-              <div className="block w-full overflow-hidden bg-gray-100 rounded-lg group aspect-h-7 aspect-w-10 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-                <img src={news.urlToImage} alt="" className="object-cover pointer-events-none group-hover:opacity-75" />
-                <button type="button" className="absolute inset-0 focus:outline-none">
-                  <span className="sr-only">View details for {news.title}</span>
-                </button>
-              </div>
-              <p className="block mt-2 text-sm font-medium text-gray-900 pointer-events-none">{news.title}</p>
-            </a>
+            <li key={news.title}>
+              <a href={news.url} target="_blank" className="flex flex-col items-start h-full rounded shadow-md hover:shadow-lg" rel="noreferrer">
+                <div className="relative w-full">
+                  <img
+                    src={news.urlToImage}
+                    alt=""
+                    className="aspect-[16/9] w-full rounded-t-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                  />
+                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                </div>
+                <div className="max-w-xl p-2">
+                  <div className="relative group">
+                    <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                      <span className="absolute inset-0" />
+                      {news.title}
+                    </h3>
+                    <p className="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">{news.description}</p>
+                  </div>
+                </div>
+              </a>
+            </li>
           )}
         </ul>
       </div>
