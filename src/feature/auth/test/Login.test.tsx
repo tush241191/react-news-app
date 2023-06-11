@@ -1,7 +1,7 @@
 import {fireEvent, render, screen} from '@testing-library/react'
 import React from 'react'
 
-import Login from './Login'
+import Login from '../login/Login'
 
 jest.mock('src/hooks/useAuth', () => ({
   __esModule: true,
@@ -26,10 +26,10 @@ describe('Login', () => {
     expect(signInButton).toBeDisabled()
 
     fireEvent.change(screen.getByLabelText('Email address'), {
-      target: {value: 'test@example.com'}
+      target: {value: 'tushar@example.com'}
     })
     fireEvent.change(screen.getByLabelText('API Key'), {
-      target: {value: '1234567890'}
+      target: {value: 'as123ddfr567yhg'}
     })
 
     expect(signInButton).toBeEnabled()

@@ -5,6 +5,7 @@ import useApi from 'src/hooks/useApi'
 import {API_ROUTES} from 'src/utils/constants'
 
 import {NewsApiResponse, NewsResponse, Source} from '../types'
+import NewsItem from './NewsItem'
 
 interface NewsSectionProps {
   source: Source;
@@ -18,11 +19,15 @@ const NewsSection = ({source}: NewsSectionProps) => {
     fetchHeadlines()
   }, [source])
 
-  const fetchHeadlines = () => {
-    const url = `${API_ROUTES.TOP_HEADLINES}?sources=${source.id}`
-    getRequest<NewsApiResponse>(url).then(response => {
-      if(response) headlines.current = response.articles
-    })
+  const fetchHeadlines = async () => {
+    try {
+      const url = `${API_ROUTES.TOP_HEADLINES}?sources=${source.id}`
+      const response = await getRequest<NewsApiResponse>(url)
+      if(response) {
+        headlines.current = response.articles
+        return response.articles
+      }
+    } catch (error) {}
   }
 
   if(loading) {
@@ -37,28 +42,12 @@ const NewsSection = ({source}: NewsSectionProps) => {
     <>
       {headlines.current.length > 0 &&
       <div className="mt-4">
-        <h2 className="font-bold">Headlines</h2>
-        <ul className="grid grid-cols-2 mt-4 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+        <h2 id="headline-title" data-testid="headline-title" className="font-bold">Headlines</h2>
+        <ul data-testid="news" aria-label="news" aria-labelledby="news" className="grid grid-cols-2 mt-4 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
           {headlines.current.map(news =>
-            <li key={news.title}>
-              <a href={news.url} target="_blank" className="flex flex-col items-start h-full rounded shadow-md hover:shadow-lg" rel="noreferrer">
-                <div className="relative w-full">
-                  <img
-                    src={news.urlToImage}
-                    alt=""
-                    className="aspect-[16/9] w-full rounded-t-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                  />
-                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                </div>
-                <div className="max-w-xl p-2">
-                  <div className="relative group">
-                    <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                      <span className="absolute inset-0" />
-                      {news.title}
-                    </h3>
-                    <p className="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">{news.description}</p>
-                  </div>
-                </div>
+            <li aria-label="newsitems" key={news.title}>
+              <a href={news.url} target="_blank" rel="noreferrer">
+                <NewsItem news={news} />
               </a>
             </li>
           )}
